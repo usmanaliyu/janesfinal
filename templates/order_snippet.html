@@ -6,7 +6,7 @@
             {% for order_item in order.items.all %}
             <p class="d-flex">
                 <span>{{ order_item.quantity }} x {{ order_item.item.title}}</span>
-                <span>${{ order_item.get_final_price }}</span>
+                <span>&#8358; {{ order_item.get_final_price }}</span>
             </p>
             {% endfor %}
 
@@ -17,17 +17,18 @@
                 <h6 class="my-0">Promo code</h6>
                 <small>{{ order.coupon.code }}</small>
             </div>
-            <span class="text-success">-${{ order.coupon.amount }}</span>
+            <span class="text-success">-&#8358; {{ order.coupon.amount }}</span>
             {% endif %}
 
 
             <hr>
             <p class="d-flex total-price">
                 <span>Total</span>
-                <span>${{ order.get_total }}</span>
+                <span>&#8358; {{ order.get_total }}</span>
             </p>
 
             {% if DISPLAY_COUPON_FORM %}
+            
             <form class="card p-2" action="{% url 'core:add-coupon' %}" method="POST">
                 {% csrf_token %}
                 <div class="input-group">

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
 
-    'core'
+    'core',
+    'sorl.thumbnail'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'djecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/Users/usmanaliyu/Documents/djecommerce/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,8 +139,12 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend'
 )
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
 
+LOGIN_REDIRECT_URL = '/shop'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "Janes Fashion"
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 # CRISPY FORMS
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,0 +1,7 @@
+btn-info
+btn-success
+btn-secondary
+btn-primary
+
+.btn-warning
+btn-danger

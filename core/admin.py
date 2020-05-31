@@ -82,6 +82,6 @@ admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)
 admin.site.register(Category,CategoryAdmin)
 
-admin.site.site_header = "Jane's Admin"
-admin.site.site_text = "Jane's Admin Portal"
-admin.site.site_title = "Welcome to janes Admin Portal"
+admin.site.site_header = "Jane's Fashion Admin Dashboard"
+admin.site.site_text = "Jane's Fashion Admin Portal"
+admin.site.site_title = "Welcome to Janes Fashion Admin Portal"

@@ -52,6 +52,7 @@ class UserProfile(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
+    featured = models.BooleanField(default=False, blank=True, null=True)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE, default=1,)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)

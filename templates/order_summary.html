@@ -1,8 +1,28 @@
 {% extends "base.html" %}
+{% load thumbnail %}
+{% load static %}
 
+{% block head_title %}
+<title>Cart - Jane's Fashion </title>
+{% endblock %}
 {% block content %}
 
 
+<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_6.jpg' %});">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'core:home' %}">Jane's</a></span>
+                    <span>Fashion</span>
+                </p>
+                <h1 class="mb-0 bread">Cart</h1>
+
+           
+
+            </div>
+        </div>
+    </div>
+</div>
 <section class="ftco-section ftco-cart">
     <div class="container">
         <div class="row">
@@ -27,19 +47,20 @@
                                 <td class="product-remove"><a
                                         href="{% url 'core:remove-from-cart' order_item.item.slug %}"><span
                                             class="ion-ios-close"></span></a></td>
-
+{% thumbnail order_item.item.image '150x150' crop="center" as jane  %}
                                 <td class="image-prod">
-                                    <div class="img" style="background-image:url( '{{ order_item.item.image.url }}' );">
+                                    <div class="img" style="background-image:url( '{{ jane.url }}' );">
 
                                     </div>
                                 </td>
 
+                                {% endthumbnail %}
                                 <td class="product-name">
                                     <h3>{{ order_item.item.title }}</h3>
 
                                 </td>
 
-                                <td class="price">{{ order_item.item.price }}</td>
+                                <td class="price">&#8358; {{ order_item.item.price }}</td>
 
 
 
@@ -56,7 +77,7 @@
                                                     </button>
                                                 </a>
                                             </span>
-                                            <p id="quantity" name="quantity" class="quantity form-control input-number">
+                                            <p id="quantity" name="quantity" class="text-center pt-3 quantity form-control input-number">
                                                 {{ order_item.quantity }}</p>
                                             <span class="input-group-btn ml-2">
                                                 <a href="{% url 'core:add-to-cart' order_item.item.slug %}">
@@ -75,17 +96,28 @@
 
 
 
-                                <td class="total">${{ order_item.get_total_item_price }}</td>
+                                <td class="total">&#8358; {{ order_item.get_total_item_price }}</td>
                             </tr><!-- END TR-->
                             {% empty %}
                             <tr class="text-center">
                                 <P>YOUR CART IS EMPTY</P>
+
+                                  <tr>
+
+                                      <td colspan="12">
+                                          <a href="{% url 'core:shop'%}"
+                                              class="btn btn-primary py-3 px-4 float-left ml-2">Continue
+                                              Shopping</a>
+
+                                      </td>
+                                  </tr>
                                 {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        {% if object.get_total %}
         <div class="row justify-content-end">
             <div class=" col-md-6 mt-5 cart-wrap ftco-animate">
 
@@ -94,6 +126,8 @@
 
             </div>
         </div>
+
+        {% endif %}
     </div>
 </section>
 
