@@ -1,0 +1,71 @@
+<div class="row mt-5 pt-3 d-flex">
+    <div class="col-md-6 d-flex">
+        <div class="cart-detail cart-total bg-light p-3 p-md-4">
+
+            <h3 class="billing-heading mb-4">Cart Total <span>{{ order.items.count }}</span></h3>
+            {% for order_item in order.items.all %}
+            <p class="d-flex">
+                <span>{{ order_item.quantity }} x {{ order_item.item.title}}</span>
+                <span>${{ order_item.get_final_price }}</span>
+            </p>
+            {% endfor %}
+
+
+
+            {% if order.coupon %}
+            <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>{{ order.coupon.code }}</small>
+            </div>
+            <span class="text-success">-${{ order.coupon.amount }}</span>
+            {% endif %}
+
+
+            <hr>
+            <p class="d-flex total-price">
+                <span>Total</span>
+                <span>${{ order.get_total }}</span>
+            </p>
+
+            {% if DISPLAY_COUPON_FORM %}
+            <form class="card p-2" action="{% url 'core:add-coupon' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    {{ couponform.code }}
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary btn-md waves-effect m-0" type="submit">Redeem</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="cart-detail bg-light p-3 p-md-4">
+            <h3 class="billing-heading mb-4">Payment Method</h3>
+
+            <div class="form-group">
+                {% for value, name in form.fields.payment_option.choices %}
+                <div class="col-md-12">
+                    <div class="radio ">
+
+                        <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" required>
+                        <label for="{{ name }}" required>{{ name }}</label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="" class="mr-2"> I have read and accept the
+                            terms and conditions</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary py-3 px-4" type="submit">Continue to checkout</button>
+        </div>
+    </div>
+</div>
